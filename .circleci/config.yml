@@ -9,5 +9,8 @@ jobs:
           name: Greeting
           command: echo Hello, world.
       - run:
+          name: Wait
+          command: sleep 60         
+      - run:
           name: Print the Current Time
           command: date
