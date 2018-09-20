@@ -6,24 +6,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Greeting
-          command: echo Hello, world.
-      - run:
-          name: Print the Current Time
-          command: date
-
-
-version: 2
-jobs:
-  build:
-    docker:
-      - image: debian:stretch
-    steps:
-      - checkout
-      - run:
-          name: Greeting
-          command: echo Hello, world.
-      - run:
           name: Print the Current Time
           command: date
   long-build:
@@ -34,10 +16,21 @@ jobs:
       - run:
           name: Wait
           command: sleep 60       
+  deploy:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Deploy
+          command: echo "Test"         
 workflows:
   version: 2
   build_and_delay:
     jobs:
       - build
       - long-build
-
+      - deploy:
+          requires:
+            - build
+            - long-build
