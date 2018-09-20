@@ -11,3 +11,33 @@ jobs:
       - run:
           name: Print the Current Time
           command: date
+
+
+version: 2
+jobs:
+  build:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Greeting
+          command: echo Hello, world.
+      - run:
+          name: Print the Current Time
+          command: date
+  long-build:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Wait
+          command: sleep 60       
+workflows:
+  version: 2
+  build_and_delay:
+    jobs:
+      - build
+      - long-build
+
